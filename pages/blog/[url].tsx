@@ -3,13 +3,16 @@ import Layout from "../../components/layout"
 import { formatearFecha } from "@/utils/helper"
 import styles from '../../styles/blog.module.css'
 import { Posts } from "@/types/blogTypes"
+import { GetServerSideProps } from "next"
+import { getPost } from "@/lib/posts.server"
 
 export default function Post({posts}: Posts) {
 
-    const { titulo,contenido, imagen, publishedAt} = posts[0].attributes
+   const {titulo,imagen, publishedAt, contenido } = posts[0].attributes
 
     return (
-        <Layout
+        
+         <Layout
             title={titulo}
             description="Blog de GuitarLA"
         >
@@ -23,15 +26,17 @@ export default function Post({posts}: Posts) {
                 </div>
             </article>
         </Layout>
+        
+        
     )
 }
 
-
-/* export async function getServerSideProps({query: {url }}) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const {url}: any = context.query
     const post = await getPost(url)
     return {
         props: {
-            post
+            posts: post.data
         }
     }
-} */
+}

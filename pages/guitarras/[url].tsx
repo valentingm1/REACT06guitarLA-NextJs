@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import styles from '../../styles/guitarras.module.css'
 import Layout from "../../components/layout"
-import { Guitarras, Guitarra } from '@/types/guitarraTypes'
-import { GetStaticPaths, GetStaticProps} from 'next'
-import { getGuitarra, getGuitarras } from '@/lib/guitarras.server'
+import { Guitarras } from '@/types/guitarraTypes'
+import { GetServerSideProps} from 'next'
+import { getGuitarra } from '@/lib/guitarras.server'
 
 
 export default function Producto({guitarras}: Guitarras) {
@@ -28,26 +28,12 @@ export default function Producto({guitarras}: Guitarras) {
     )
 }
 
-/* export const getStaticPaths: GetStaticPaths = async () => {
-    const guitarras = await getGuitarras()
-
-    const paths = guitarras.data.map((guitarra: Guitarra) => ({
-        params: {
-            url: guitarra.attributes.url
-        }
-    }))
-    return {
-        paths, 
-        fallback: false
-    }
-}
-
-export const getStaticProps: GetStaticProps = async ({params:{url}}) =>  {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const {url}: any = context.query
     const guitarra = await getGuitarra(url)
     return {
         props: {
-            guitarra
+            guitarras: guitarra.data
         }
     }
 }
- */
