@@ -6,11 +6,12 @@ export type Guitarra = {
       createdAt?: string,
       updatedAt?: string,
       publishedAt?: string,
-      descripcion: string
+      descripcion?: string
       precio: number,
-      url: string,
+      url?: string,
       imagen: any
     }
+    cantidad?: number
 }
 export type Guitarras ={
     guitarras: Guitarra[]
