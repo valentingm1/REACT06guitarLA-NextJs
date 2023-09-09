@@ -11,7 +11,7 @@ export type Guitarra = {
       url?: string,
       imagen: any
     }
-    cantidad?: number
+    cantidad: number
 }
 export type Guitarras ={
     guitarras: Guitarra[]

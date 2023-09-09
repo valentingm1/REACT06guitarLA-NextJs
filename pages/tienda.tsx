@@ -20,6 +20,7 @@ const Tienda = ({guitarras}: Guitarras) => {
                   <GuitarraComponent
                       key={guitarra.id}
                       attributes={guitarra.attributes}
+                      cantidad={guitarra.cantidad}
                   />
               ))}   
             </div>

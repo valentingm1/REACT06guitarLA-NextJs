@@ -1,6 +1,6 @@
 import { Guitarra } from "@/types/guitarraTypes";
 
-const carrito: Guitarra[] = typeof window !== 'undefined' ?  JSON.parse(localStorage.getItem("carrito") || "[]") : [] 
+
 
 export const agregarCarrito = (guitarra: Guitarra): void => {
     let carrito: Guitarra[] = JSON.parse(localStorage.getItem("carrito") || "[]")
@@ -22,8 +22,7 @@ export const agregarCarrito = (guitarra: Guitarra): void => {
     }
 }
 
-
-/* export const eliminarProducto = (id: number | undefined) => {
+ export const eliminarProducto = (id: number | undefined) => {
     let carrito: Guitarra[] = JSON.parse(localStorage.getItem("carrito") || "[]")
     const carritoActualizado = carrito.filter( producto => producto.id != id)
     window.localStorage.setItem('carrito', JSON.stringify( carritoActualizado ));
@@ -31,13 +30,13 @@ export const agregarCarrito = (guitarra: Guitarra): void => {
 
 export const actualizarCantidad = (guitarra: Guitarra) => {
     let carrito: Guitarra[] = JSON.parse(localStorage.getItem("carrito") || "[]")
-  const carritoActualizado = carrito.map( guitarraState => {
+    console.log(carrito)
+    const carritoActualizado = carrito.map( guitarraState => {
     if(guitarraState.id === guitarra.id ) {
       guitarraState.cantidad = guitarra.cantidad
     } 
     return guitarraState
   })
+  console.log(carritoActualizado)
   window.localStorage.setItem('carrito', JSON.stringify( carritoActualizado ));
 }
-
- */

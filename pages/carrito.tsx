@@ -1,25 +1,32 @@
 import Layout from "@/components/layout";
 import styles from "../styles/carrito.module.css";
 import { Guitarra } from "@/types/guitarraTypes";
-/* import { eliminarProducto,actualizarCantidad} from "@/modules/carritoFunciones"; */
+import { eliminarProducto,actualizarCantidad} from "@/modules/carritoFunciones"; 
 import {useEffect, useState} from "react"
 
 
 function Carrito() {
 
-
+    const [total, setTotal] = useState(0);
     const carrito: Guitarra[] = typeof window !== 'undefined' ?  JSON.parse(localStorage.getItem("carrito") || "[]") : [] 
 
     useEffect(() => {
     localStorage.setItem("carrito", JSON.stringify(carrito))
-    }, [carrito])
+    }, [])
+    
+    useEffect(() => {
+        const calcTotal = carrito.reduce(
+          (total, producto) => total + producto.attributes.precio * producto.cantidad,
+          0
+        );
+        setTotal(calcTotal);
+      }, [carrito]);
     
 
   return (
     <Layout title="Carrito de Compras" description="GuitarLA - Carrito">
       <main className="contenedor">
         <h1 className="heading">Carrito</h1>
-
         <div className={styles.contenido}>
           <div className={styles.carrito}>
             <h2>Artículos</h2>
@@ -39,15 +46,15 @@ function Carrito() {
                         {producto.attributes.nombre}
                       </p>
                       <select
-                        className="select"
+                        className={styles.select}
                         value={producto.cantidad}
-                        /*  onChange={(e) =>
-                        actualizarCantidad({
-                          cantidad: parseInt(e.target.value),
+                          onChange={(e) =>
+                          actualizarCantidad({
+                          cantidad: +e.target.value,
                           id: producto.id,
                           attributes: producto.attributes
                         })
-                      } */
+                      } 
                       >
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -59,7 +66,7 @@ function Carrito() {
                         $ <span>{producto.attributes.precio}</span>
                       </p>
 
-                      <p className="subtotal">
+                      <p className={styles.subtotal}>
                         Subtotal: ${" "}
                         <span>
                           {producto.attributes.precio * producto.cantidad}
@@ -70,7 +77,7 @@ function Carrito() {
                       type="button"
                       className={
                         styles.btn_eliminar
-                      } /* onClick={() => eliminarProducto(producto.id)} */
+                      }  onClick={() => eliminarProducto(producto.id)}
                     >
                       X
                     </button>
@@ -80,7 +87,7 @@ function Carrito() {
 
           <aside className={styles.resumen}>
             <h3>Resumen del pedido</h3>
-            <p>Total a pagar: $</p>
+            <p>Total a pagar: ${total}</p>
           </aside>
         </div>
       </main>
