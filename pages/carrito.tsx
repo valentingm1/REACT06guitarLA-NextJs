@@ -12,7 +12,8 @@ function Carrito() {
 
     useEffect(() => {
     localStorage.setItem("carrito", JSON.stringify(carrito))
-    }, [])
+    console.log(carrito)
+    }, [carrito])
     
     useEffect(() => {
         const calcTotal = carrito.reduce(

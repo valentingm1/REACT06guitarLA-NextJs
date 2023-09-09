@@ -37,6 +37,6 @@ export const actualizarCantidad = (guitarra: Guitarra) => {
     } 
     return guitarraState
   })
-  console.log(carritoActualizado)
+
   window.localStorage.setItem('carrito', JSON.stringify( carritoActualizado ));
 }
